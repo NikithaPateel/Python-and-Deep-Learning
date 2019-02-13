@@ -15,4 +15,7 @@ while True:
             total_amount = total_amount - int(c[1])
     else:
         break
-print("total amount is ", total_amount)
+if total_amount < 0:
+    print("Insufficient Funds in your account")
+else:
+    print("total amount is ", total_amount)
