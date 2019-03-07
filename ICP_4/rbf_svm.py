@@ -1,27 +1,34 @@
-#import SVC form scikit learn
+#Import GaussianNB from scikit-Learn libraries
 from sklearn.svm import SVC
 from sklearn import datasets
-from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
+from sklearn import metrics
+from sklearn.model_selection import KFold
+import numpy as np
 
-#loading the data
+#loading irisdataset
 irisdataset = datasets.load_iris()
-
+#splitting for cross validation
+kf = KFold(n_splits=10, random_state= 42 , shuffle= False)
+# x is predictor and y is the target data
 x = irisdataset.data
 y = irisdataset.target
+scores = []
+for train_index, test_index in kf.split(x):
+    #training set
+    x_train, x_test, y_train, y_test = x[train_index], x[test_index], y[train_index], y[test_index]
+# creating Gaussain Naive Bayes object for classification
+    svclassifier = SVC(kernel='rbf',gamma= "auto")
 
-#trining dataset
-x_train , x_test, y_train , y_test = train_test_split(x,y, test_size= 0.2)
+#Training the Model
+    svclassifier.fit(x_train, y_train)
 
-#creating SVC RBF Kernal Object for classification
-svclassifier = SVC(kernel='rbf', gamma= "auto")
+#Predictig the Output
+    y_predict = svclassifier.predict(x_test)
+    scores.append(metrics.accuracy_score(y_test , y_predict))
+    print(y_predict)
+#Printing the  accuracy
+for i in range(len(scores)):
+    print(scores)
+print(np.mean(scores))
 
-#trining the data
-svclassifier.fit(x_train, y_train)
 
-#pridicting then output
-y_pred = svclassifier.predict(x_test)
-print(y_pred)
-
-#classification report to display the accuracy
-print(classification_report(y_test, y_pred))

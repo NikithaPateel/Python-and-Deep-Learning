@@ -21,12 +21,6 @@ plt.xlabel('Garage Area')
 plt.show()
 
 train = train[train['GarageArea']> 0]
-# plt.scatter(x=train['GarageArea'],y =np.log(train.SalePrice))
-# plt.xlim(-200,1600)
-# plt.ylabel('Sale Price')
-# plt.xlabel('Garage Area')
-# plt.show()
-
 train = train[train['GarageArea'] < 1200]
 plt.scatter(x=train['GarageArea'],y =np.log(train.SalePrice))
 plt.xlim(-200,1600)

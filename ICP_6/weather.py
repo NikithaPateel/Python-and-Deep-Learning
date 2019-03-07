@@ -3,9 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 
-# plt.style.use(style='ggplot')
-# plt.rcParams['figure.figsize'] = (10, 6)
-
 train = pd.read_csv('weatherHistory.csv')
 train.Summary.describe()
 
